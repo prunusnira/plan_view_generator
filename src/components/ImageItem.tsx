@@ -12,14 +12,7 @@ const ImgPreview = styled.img`
   background: #a70f11;
 `;
 
-type ImageProps = {
-    rowNumber: number;
-    id: number;
-    url: string,
-};
-
-
-const ImagesItem = (props : ImageProps) => {
+const ImagesItem = (props : Props) => {
     const dispatch = useAppDispatch();
     const selections = useAppSelector(state => state.selections).rows.find((selectionInRow) => selectionInRow.row == props.rowNumber);
 
@@ -33,4 +26,11 @@ const ImagesItem = (props : ImageProps) => {
     );
 };
 
+export interface Props {
+    rowNumber: number;
+    id: number;
+    url: string,
+}
+
 export default ImagesItem;
+
