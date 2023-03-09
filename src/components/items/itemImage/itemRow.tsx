@@ -1,23 +1,21 @@
-import React, { ChangeEvent, useCallback, useRef, useState } from "react";
+import React, {
+    ChangeEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
 import styled from "styled-components";
 import ImageItem from "./ImageItem";
 import ImageAppender from "./ImageAppender";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { clear } from "../../redux/slices/selections";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { clear } from "../../../redux/slices/selections";
+import { Item } from "../../users/types/typeItem";
+import { ItemRowWrapper } from "./itemRow.style";
 
-const DivFlex = styled.div`
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin-bottom: 50px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-`;
-
-type RowProps = {
-    rowNumber: number;
+type Props = {
+    item: Item;
 };
 
 type ImageFile = {
@@ -26,13 +24,19 @@ type ImageFile = {
     url: string;
 };
 
-const ImageRow = (props: RowProps) => {
+const ItemRow = ({ item }: Props) => {
+    const { id, category, name, price, image, amount } = item;
+
     const fileId = useRef<number>(0);
     const [files, setFiles] = useState<ImageFile[]>([]);
     const selections = useAppSelector((state) => state.selections).rows.find(
-        (selectionInRow) => selectionInRow.row == props.rowNumber
+        (selectionInRow) => selectionInRow.row === id
     );
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        console.log(__dirname);
+    }, []);
 
     const onChangeFiles = useCallback(
         (e: ChangeEvent<HTMLInputElement> | any): void => {
@@ -70,7 +74,7 @@ const ImageRow = (props: RowProps) => {
                     selections.idList.indexOf(curFile.id) < 0
             )
         );
-        dispatch(clear(props.rowNumber));
+        dispatch(clear(id));
     }, [selections, files]);
 
     const handleEditFile = useCallback((): void => {
@@ -81,7 +85,7 @@ const ImageRow = (props: RowProps) => {
 
     const getFile = (id: number) => {
         files.map((imageFile) => {
-            if (imageFile.id == id) {
+            if (imageFile.id === id) {
                 return imageFile.file;
             }
         });
@@ -89,12 +93,24 @@ const ImageRow = (props: RowProps) => {
     };
 
     return (
-        <DivFlex>
+        <ItemRowWrapper>
+            <p>아이템 ID {id}</p>
+            <p>이름 {name}</p>
+            <p>가격 {price}</p>
+            <p>분류 {category}</p>
+            {image.map((path, i) => (
+                <ImageItem
+                    key={`image${id}_${i}`}
+                    rowNumber={id}
+                    id={i}
+                    url={`${process.env.PUBLIC_URL}/img/${path}`}
+                />
+            ))}
             {files.length > 0 &&
                 files.map((file: ImageFile) => {
                     return (
                         <ImageItem
-                            rowNumber={props.rowNumber}
+                            rowNumber={id}
                             key={file.id}
                             id={file.id}
                             url={file.url}
@@ -102,7 +118,7 @@ const ImageRow = (props: RowProps) => {
                     );
                 })}
             <ImageAppender
-                rowNumber={props.rowNumber}
+                rowNumber={id}
                 onChangeFiles={onChangeFiles}
                 onRemove={handleRemoveFiles}
                 onEdit={handleEditFile}
@@ -113,8 +129,8 @@ const ImageRow = (props: RowProps) => {
                         return <p key={id}>{id}</p>;
                     })}
             </div>
-        </DivFlex>
+        </ItemRowWrapper>
     );
 };
 
-export default ImageRow;
+export default ItemRow;

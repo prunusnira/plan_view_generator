@@ -9,11 +9,13 @@ export const GetAllUsers = gql`
             age
             orderList {
                 id
-                amount
                 item {
+                    id
                     category
                     name
                     price
+                    image
+                    amount
                 }
             }
         }

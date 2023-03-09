@@ -1,10 +1,10 @@
 import { act, render, screen } from "@testing-library/react";
 
 import ImageItem, { Props } from "../ImageItem";
-import store from "../../../redux/store";
+import store from "../../../../redux/store";
 import { Provider } from "react-redux";
-import { useAppDispatch } from "../../../redux/hooks";
-import { select } from "../../../redux/slices/selections";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { select } from "../../../../redux/slices/selections";
 
 const testProps: Props = {
     rowNumber: 0,

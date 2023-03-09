@@ -1,21 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { select } from "../../redux/slices/selections";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { select } from "../../../redux/slices/selections";
 
 const ImgPreview = styled.img`
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: 100px;
     background: #a70f11;
 `;
 
 const ImagesItem = (props: Props) => {
     const dispatch = useAppDispatch();
     const selections = useAppSelector((state) => state.selections).rows.find(
-        (selectionInRow) => selectionInRow.row == props.rowNumber
+        (selectionInRow) => selectionInRow.row === props.rowNumber
     );
 
     const handleImgClick = (e: React.MouseEvent) => {

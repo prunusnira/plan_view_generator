@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { useDragAndDrop } from "../../../hooks/useDragAndDrop";
 import styled from "styled-components";
 import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 
 const LabelAppendImage = styled.label`
     border-radius: 8px;
@@ -36,11 +36,11 @@ const ImageAppender = (props: ImageAppenderProps) => {
     });
 
     const selections = useAppSelector((state) => state.selections).rows.find(
-        (selectionInRow) => selectionInRow.row == props.rowNumber
+        (selectionInRow) => selectionInRow.row === props.rowNumber
     );
 
     const handleButtonClick = (e: React.MouseEvent) => {
-        if (e.currentTarget.ariaLabel == "Edit") {
+        if (e.currentTarget.ariaLabel === "Edit") {
             props.onEdit();
         } else {
             props.onRemove();
