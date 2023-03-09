@@ -8,6 +8,7 @@ const ItemList = () => {
     const { loading, error, data } = useQuery(GetAllItems);
     return (
         <ItemListWrapper>
+            <h3>등록된 상품 목록</h3>
             {loading && "Loading"}
             {error && `Error: ${error.message}`}
             {data &&

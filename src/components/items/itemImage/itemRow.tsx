@@ -94,10 +94,21 @@ const ItemRow = ({ item }: Props) => {
 
     return (
         <ItemRowWrapper>
-            <p>아이템 ID {id}</p>
-            <p>이름 {name}</p>
-            <p>가격 {price}</p>
-            <p>분류 {category}</p>
+            <p>
+                <b>아이템 ID</b> {id}
+            </p>
+            <p>
+                <b>이름</b> {name}
+            </p>
+            <p>
+                <b>가격</b> {price.toLocaleString("en-US")}원
+            </p>
+            <p>
+                <b>분류</b> {category}
+            </p>
+            <p>
+                <b>제품 이미지 목록</b>
+            </p>
             {image.map((path, i) => (
                 <ImageItem
                     key={`image${id}_${i}`}

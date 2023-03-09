@@ -71,7 +71,6 @@ const ImageAppender = (props: ImageAppenderProps) => {
                 multiple={true}
                 onChange={props.onChangeFiles}
             />
-
             <LabelAppendImage
                 className={
                     isDragging ? "ImagesRow-File-Dragging" : "ImagesRow-File"
@@ -82,7 +81,11 @@ const ImageAppender = (props: ImageAppenderProps) => {
                 {" "}
                 +
             </LabelAppendImage>
-
+            <p style={{ fontSize: `12px` }}>
+                신규 이미지 추가
+                <br />
+                (드래그 드랍 가능)
+            </p>
             <DivFab>
                 {selections && selections.idList.length > 0
                     ? fabs.map((fab, index) => (

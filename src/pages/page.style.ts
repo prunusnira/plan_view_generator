@@ -8,3 +8,8 @@ export const PageWrapper = styled.main`
 
     padding-top: 50px;
 `;
+
+export const IndexButton = styled.button`
+    font-size: 24px;
+    padding: 20px;
+`;
